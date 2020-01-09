@@ -1,5 +1,8 @@
 # ScryfallPuller Specific
+# don't want to git the databases
 *.csv
+*.xlsx
+*.xls
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
