@@ -17,6 +17,12 @@ Currently set up to export the following data:
 - type
 - usd
 
+pip3 installs:
+```
+pip3 install requests-html
+pip3 install pandas
+pip3 install openpyxl
+```
 
 Usage:
 ```
