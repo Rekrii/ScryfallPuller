@@ -1,6 +1,12 @@
 '''
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
+
+Need to pip3 install:
+requests-html
+pandas
+openpyxl
+
 '''
 
 from requests_html import HTMLSession
