@@ -91,35 +91,35 @@ db_refine = []
 for card in db:
     try:
         c = {}
-        c['name'] = card['name']
-        c['set_name'] = card['set_name']
-        c['set'] = card['set'].upper()
-        c['rarity'] = card['rarity'][0].upper()  # used rarity code, C/U/R/M
-        c['colors'] = fix_color(str(card.get('colors')))
-        c['color_identity'] = fix_color(str(card['color_identity']))
-        c['mana_cost'] = card.get('mana_cost')
         c['cmc'] = card['cmc']
-        c['type'] = card['type_line']
+        c['color_identity'] = fix_color(str(card['color_identity']))
+        c['colors'] = fix_color(str(card.get('colors')))
+        c['foil'] = card['foil']
+        c['mana_cost'] = card.get('mana_cost')
+        c['name'] = card['name']
+        c['oracle_text'] = card.get('oracle_text')
+        c['oversized'] = card['oversized']
         # If we have loyalty, then stick it into a general 'power-toughness-loyalty' key
         # otherwise get the P/T and store that
         if not card.get('loyalty') is None:
             c['ptl'] = card.get('loyalty')
         elif not card.get('power') is None or not card.get('toughness') is None:
             c['ptl'] = card.get('power') + "/" + card.get('toughness')
-        c['oracle_text'] = card.get('oracle_text')
+        c['rarity'] = card['rarity'][0].upper()  # used rarity code, C/U/R/M
+        c['set'] = card['set'].upper()
+        c['set_name'] = card['set_name']
+        c['type'] = card['type_line']
         c['usd'] = card.get('prices').get('usd')
-        c['oversized'] = card['oversized']
-        c['foil'] = card['foil']
     except Exception as e:
         print(e)
     db_refine.append(c)
 
-
+print("Done pulling - Writing to disk")
 # Wrap it up in a pandas.Dataframe and then export to csv/excel
 # using sensible formatting - yyyy-mm-dd
 df = pd.DataFrame(db_refine)
 df.to_csv("scryfall_db_" + datetime.today().strftime("%Y-%m-%d") + ".csv")
 df.to_excel("scryfall_db_" + datetime.today().strftime("%Y-%m-%d") + ".xlsx")
+print("Script complete")
 
-print("Done pulling")
 
